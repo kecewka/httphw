@@ -53,7 +53,8 @@ public class App {
         if (response.statusCode() == 429) {
             System.out.println("------TOO MANY REQUESTS------");
             System.out.println("-------TRY AGAIN LATER-------");
-        } else {
+        }
+        if(response.statusCode() != 200 || response.statusCode() != 429) {
             System.out.println("----SOMETHING WENT WRONG----");
         }
     }
