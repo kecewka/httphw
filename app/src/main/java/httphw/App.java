@@ -28,7 +28,8 @@ public class App {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        printResult(response);
+        int responseCode = response.statusCode();
+        printResult(responseCode);
 
     }
 
@@ -44,18 +45,19 @@ public class App {
         return json;
     }
 
-    public static void printResult(HttpResponse response) {
-        if (response.statusCode() == 200) {
+    public static void printResult(int responseCode) {
+        if (responseCode == 200) {
             System.out.println("----------SUCCESS----------");
             System.out.println("-------RESPONSE BODY-------");
             System.out.println(response.body());
         }
-        if (response.statusCode() == 429) {
+        if (responseCode == 429) {
+            //Специально не выводил response.body()
             System.out.println("------TOO MANY REQUESTS------");
             System.out.println("-------TRY AGAIN LATER-------");
         }
-        if(response.statusCode() != 200 || response.statusCode() != 429) {
-            System.out.println("----SOMETHING WENT WRONG----");
+        else {
+            System.out.println("smth wrong");
         }
     }
 }
